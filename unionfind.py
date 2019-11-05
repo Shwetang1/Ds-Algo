@@ -1,16 +1,16 @@
 class UnionFind:
-    def __init__(self,size):
+    def __init__(self, size):
         if size < 0:
             raise ValueError("number of elements cannot be 0 or negative!")
         self.num_components = size
         self.id = list(range(size))
-        self.size = [1]*size
+        self.size = [1] * size
 
-    def find(self,elem):
+    def find(self, elem):
         '''
 
         :param elem:
-        :return:
+        :return: Finds the component(root) in which element elem lies
         '''
         root = elem
         while root != self.id[root]:  # Fining self loop. that will be the root
@@ -19,7 +19,7 @@ class UnionFind:
         # Do path compression! How?
         # TODO: Implement path compression!
 
-    def is_connected(self,elem1,elem2):
+    def is_connected(self, elem1, elem2):
         """
         Checks if two elements elem1 and elem2 are in the same component
         :param elem1:
@@ -30,19 +30,33 @@ class UnionFind:
             return True
         return False
 
-    def component_size(self,elem):
+    def component_size(self, elem):
+        '''
+        :param elem:
+        :return: returns size of the component in which the element elem lies
+
+        '''
         return self.size[self.find(elem)]
 
     def num_components(self):
+        '''
+       :return: returns total number of components
+        '''
         return self.num_components
 
-    def union(self,elem1,elem2):
+    def union(self, elem1, elem2):
+        '''
+
+        :param elem1:
+        :param elem2:
+        :return: unions the components containing element 1 and element 2
+        '''
         root1 = self.find(elem1)
         root2 = self.find(elem2)
         if root1 == root2:
             return
         if self.size[root1] < self.size[root2]:
-            self.size[root2]+=self.size[root1]
+            self.size[root2] += self.size[root1]
             self.id[root1] = root2
         else:
             self.size[root1] += self.size[root2]
@@ -51,20 +65,24 @@ class UnionFind:
         self.num_components -= 1
 
     def __str__(self):
-        return "num_components :{}, id: {}, size: {}".format(self.num_components,self.id,self.size)
+        '''
+
+        :return: String representation of Union Find
+        '''
+        return "num_components :{}, id: {}, size: {}".format(self.num_components, self.id, self.size)
 
 
 if __name__ == "__main__":
     uf = UnionFind(10)
-    uf.union(0,1)
+    uf.union(0, 1)
     print(uf)
-    uf.union(2,3)
+    uf.union(2, 3)
     print(uf)
-    uf.union(4,5)
+    uf.union(4, 5)
     print(uf)
-    uf.union(6,7)
+    uf.union(6, 7)
     print(uf)
-    uf.union(8,9)
+    uf.union(8, 9)
     print(uf)
-    uf.union(9,6)
+    uf.union(9, 6)
     print(uf)
