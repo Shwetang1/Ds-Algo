@@ -5,16 +5,16 @@ class Heap:
     def __init__(self):
         self.heap = []
 
-    def heapify(self):
+    def heapify(self,parent_node_to_heapify_from):
         """
-        Bottom up heapify
+        Top-down heapify
         :return:
         """
         pass
 
-    def inverse_heapify(self):
+    def inverse_heapify(self,child_node_to_inverse_heapify_from):
         """
-        Top down heapify
+        Bottom-up heapify
         :return:
         """
         pass
@@ -24,7 +24,13 @@ class Heap:
         Remove min element from heap
         :return:
         """
-        pass
+        if len(self.heap) == 0:
+            raise ValueError("Can't poll because heap is empty!")
+        min_element = self.heap[0]
+        self.heap[0] = self.heap.pop()
+        self.heapify(0)
+        print("Polled element : {} !".format(min_element))
+        return min_element
 
     def find_and_remove(self):
         """
@@ -39,4 +45,14 @@ class Heap:
         :param element:
         :return:
         """
+        self.heap.append(elem)
+        self.inverse_heapify(len(self.heap)-1)
+
+    def heap_sort(self):
+        pass
+
+    def __repr__(self):
+        pass
+
+    def __str__(self):
         pass
