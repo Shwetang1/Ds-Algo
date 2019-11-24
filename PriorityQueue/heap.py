@@ -12,7 +12,7 @@ class Heap:
 
     def heapify(self, parent_node_index_to_heapify_from):
         """
-        Top-down heapify
+        Top-down heapify --> Bubble down karna hoga ismein!
         :return:
         """
         if self.heap_type == "min":
@@ -38,21 +38,27 @@ class Heap:
 
     def inverse_heapify(self, child_node_to_inverse_heapify_from):
         """
-        Bottom-up heapify
+        Bottom-up heapify --> bubble up karna hoga ismein!
         :return:
         """
         pass
 
     def poll(self):
         """
-        Remove min element from heap
+        Remove min element from heap --> yeh heap sort mein use hoga!
         :return:
         """
         if len(self.heap) == 0:
             raise ValueError("Can't poll because heap is empty!")
         min_element = self.heap[0]
-        self.heap[0] = self.heap.pop()
-        self.heapify(0)
+
+        if len(self.heap) > 1:
+            last_element = self.heap.pop()
+            self.heap[0] = last_element
+            self.heapify(0)
+        else:
+            print("Polled element : {} !".format(self.heap[0]))
+            return self.heap[0]
         print("Polled element : {} !".format(min_element))
         return min_element
 
@@ -73,7 +79,13 @@ class Heap:
         self.inverse_heapify(len(self.heap) - 1)
 
     def heap_sort(self):
-        pass
+        sorted_list = []
+        heap_copy = self.heap.copy()
+        while len(self.heap) > 0:
+            sorted_list.append(self.poll())
+        self.heap = heap_copy
+        print("Sorted list is : {}".format(sorted_list))
+        return sorted_list
 
     def __repr__(self):
         pass
@@ -84,25 +96,17 @@ class Heap:
 
 if __name__ == "__main__":
     h = Heap(heap=[0, 2, 3, 4, 5, 6, 4])
-    # h.add(4)
-    # print(h)
-    # h.add(5)
-    # print(h)
-    # h.add(6)
-    # print(h)
-    # h.add(4)
-    # print(h)
-    # h.add(2)
-    # print(h)
-    # h.add(0)
-    # print(h)
-    # h.add(3)
+    h.poll()
     print(h)
-    print(h.poll())
+    h.poll()
     print(h)
-    print(h.poll())
+    h.poll()
     print(h)
-    print(h.poll())
+    h.poll()
     print(h)
-    print(h.poll())
+    h.poll()
+    print(h)
+    h.poll()
+    print(h)
+    h.poll()
     print(h)
